@@ -7,7 +7,7 @@ LABEL com.github.containers.toolbox="true" \
 
 COPY extra-packages /
 RUN pacman -Syu && \
-    grep -v '^#' /extra-packages | pacman -S --needed add
+    grep -v '^#' /extra-packages | pacman -S --needed
 RUN rm /extra-packages
 
 RUN   ln -fs /bin/sh /usr/bin/sh && \
