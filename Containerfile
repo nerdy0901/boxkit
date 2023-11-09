@@ -7,8 +7,13 @@ LABEL com.github.containers.toolbox="true" \
 
 COPY extra-packages /
 RUN pacman -Syu --noconfirm && \
-    grep -v '^#' /extra-packages | xargs pacman -S --needed --noconfirm
-RUN rm /extra-packages
+    pacman -S --needed --noconfirm git base-devel && \
+    git clone https://aur.archlinux.org/yay-bin.git /yay-bin && \
+    cd yay-bin && makepkg -si --noconfirm && \
+    grep -v '^#' /extra-aur-packages | xargs yay -S --needed --noconfirm &&
+RUN rm /extra-packages && \
+    rm /yay-bin
+
 
 RUN   ln -fs /bin/sh /usr/bin/sh && \
       ln -fs /usr/bin/distrobox-host-exec /usr/local/bin/docker && \
