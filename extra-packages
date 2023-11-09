@@ -5,3 +5,5 @@ nmap
 zsh
 git
 gh
+python
+python3-pip
