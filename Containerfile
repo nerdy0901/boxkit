@@ -9,7 +9,7 @@ COPY extra-packages /
 RUN pacman -Syu --noconfirm && \
     pacman -S --needed --noconfirm git base-devel && \
     git clone https://aur.archlinux.org/yay-bin.git /yay-bin && \
-    cd yay-bin && makepkg -si --noconfirm && \
+    cd /yay-bin && makepkg -si --noconfirm && \
     grep -v '^#' /extra-aur-packages | xargs yay -S --needed --noconfirm &&
 RUN rm /extra-packages && \
     rm /yay-bin
