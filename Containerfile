@@ -5,6 +5,8 @@ LABEL com.github.containers.toolbox="true" \
       summary="A cloud-native terminal experience" \
       maintainer="nerdy0901"
 
+RUN echo "max_parallel_downloads=10" >> /etc/dnf/dnf.conf 
+
 COPY extra-packages /
 RUN dnf upgrade --assumeyes && \
     grep -v '^#' /extra-packages | xargs dnf install --assumeyes
@@ -21,4 +23,5 @@ RUN rpm --import https://packages.microsoft.com/keys/microsoft.asc && \
     dnf check-update && \
     dnf install --assumeyes code
 
-RUN echo "max_parallel_downloads=10" >> /etc/dnf/dnf.conf 
+RUN dnf copr enable --assumeyes atim/starship && \
+    dnf install --assumeyes starship
